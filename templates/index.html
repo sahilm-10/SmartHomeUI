@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html  lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+
+    <title>Flask App </title>
+
+    <!-- Bootstraps Java Scipts Links -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+
+    <!-- JQuery links  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://pubnub.github.io/eon/lib/eon.js"></script>
+    <style>
+        body{
+        background-image: url("https://www.security.org/app/uploads/2021/03/what-is-home-automation.png");
+        background-size: cover;
+    }
+        .jumbotron{
+            widows: 150px;
+            height: 220px;
+            justify-content: center;
+        }
+
+        .row{
+            justify-content: center;
+        }
+
+                    html, body, div, span, applet, object, iframe, p, blockquote, pre,
+            a, abbr, acronym, address, big, cite, code,
+            del, dfn, em, img, ins, kbd, q, s, samp,
+            small, strike, strong, sub, sup, tt, var,
+            b, u, i, center,
+            dl, dt, dd, ol, ul, li,
+            fieldset, form, label, legend,
+            table, caption, tbody, tfoot, thead, tr, th, td,
+            article, aside, canvas, details, embed, 
+            figure, figcaption, footer, header, hgroup, 
+            menu, nav, output, ruby, section, summary,
+            time, mark, audio, video {
+                margin: 0;
+                padding: 0;
+                border: 0;
+                font-size: 100%;
+                font: inherit;
+                vertical-align: baseline;
+            }
+            /* HTML5 display-role reset for older browsers */
+            article, aside, details, figcaption, figure, 
+            footer, header, hgroup, menu, nav, section {
+                display: block;
+            }
+            body {
+                line-height: 1;
+            }
+            ol, ul {
+                list-style: none;
+            }
+            blockquote, q {
+                quotes: none;
+            }
+            blockquote:before, blockquote:after,
+            q:before, q:after {
+                content: '';
+                content: none;
+            }
+            table {
+                border-collapse: collapse;
+                border-spacing: 0;
+            }
+
+            .switch {
+                position: relative;
+                display: inline-block;
+                width: 78px;
+                height: 50px;
+            }
+            
+              /* Hide default HTML checkbox */
+            .switch input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+            
+              /* The slider */
+            .slider {
+                position: absolute;
+                cursor: pointer;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgb(142, 172, 216);
+                -webkit-transition: .4s;
+                transition: .4s;
+            }
+            
+            .slider:before {
+                position: absolute;
+                content: "";
+                height: 42px;
+                width: 42px;
+                left: 4px;
+                bottom: 4px;
+                background-color: white;
+                -webkit-transition: .4s;
+                transition: .4s;
+              }
+              
+              input:checked + .slider {
+                background-color: #2196F3;
+              }
+              
+              input:focus + .slider {
+                box-shadow: 0 0 1px #2196F3;
+              }
+              
+              input:checked + .slider:before {
+                -webkit-transform: translateX(26px);
+                -ms-transform: translateX(26px);
+                transform: translateX(26px);
+              }
+              
+              /* Rounded sliders */
+              .slider.round {
+                border-radius: 34px;
+              }
+              
+              .slider.round:before {
+                border-radius: 50%;
+              }
+
+              .hidden {
+                display: none;
+              }
+              #on{
+                background-color: green;
+                color: white;
+                padding: 30px;
+                border-radius: 50px;
+                font-weight: 700;
+              }
+              #off{
+                background-color: red;
+                color: white;
+                padding: 30px;
+                border-radius: 50px;
+              }
+              #on:hover{
+                background-color: rgb(10, 73, 10);
+                transition: 1.5s ease-in-out;
+              }
+              #off:hover{
+                background-color: rgb(170, 22, 22);
+                transition: 1.5s ease-in-out;
+              }
+              .container>h4{
+                font-weight: 800;
+                color: black;
+                -webkit-text-stroke: 0.5px black;
+              }
+              /* .box-card{
+                border-radius: 100%;
+              } */
+              .analysis{
+                margin-top: 40px;
+              }
+
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- <div class="text-black bg-primary d-flex justify-content-center align-items-center" style="height: 6rem"> -->
+        <h1 class="text-center text-black fs-1">Smart Home Automation System </h1>
+    <!-- </div> -->
+    <div class="container text-center ">
+        <div class="d-flex p-2 flex-wrap">
+            <div class="card border-dark m-3 flex-fill box-card" style="height: 10rem; width:18rem" >
+                <div class="card-body">
+                    <h5 class="card-title">Temperature</h5>
+                    <h4 class="sensor1"></h4>
+                </div>
+            </div>
+            <div class="card border border-dark m-3 flex-fill" style="height: 10rem ; width:18rem">
+                <div class="card-body">
+                    <h5 class="card-title">Humidity</h5>
+                    <h4 class="sensor2"></h4>
+                </div>
+            </div>
+            
+        </div>
+
+        
+        
+        <!-- Rounded switch -->
+        <div class="container text-center ">
+            <h4>Control Light</h4>
+            <form method="post" action="/" name="form">
+                <input type="submit" value="LED ON" name="action1" id="on"/>
+                <input type="submit" value="LED OFF" name="action2" id="off" />
+            </form>
+        </div>
+        <!-- <div class="d-grid gap-2 col-6 mx-auto">
+            <button class="btn btn-primary col-6" type="button" onclick="startPump(this)">Start Pump</button>
+          </div> -->
+        <div class="container text-center mt-3 hidden">
+            <!-- <audio src="../static/sirun.mp3" autoplay id="sirun" ></audio> -->
+            <!-- <button class="btn btn-primary col-3 hidden" id="sirun" type="button" onclick="playSirun()">Stop syrun</button> -->
+            <!-- <button onclick="playSirun()">play</button> -->
+        </div>
+        <div class="analysis">
+          <h1>Data Analysis Temperature</h1>
+        <iframe src="http://192.168.244.59/"
+      name="thumbnails"
+      frameborder="0"
+      style="width: 100%;
+      outline: none;
+      scrollbar-color: white;
+      overflow: hidden;
+      height: 850px;">
+      </iframe>
+    </div>
+
+
+       
+
+
+    <script>
+        function requestData()
+        {
+            // Ajax call to get the Data from Flask
+            var requests = $.get('/data');
+
+            var tm = requests.done(function (result)
+            {
+  
+                $(".sensor1").text("");
+                $(".sensor1").text("Temperature : " +  result["temperature"].toFixed(2) );
+
+                $(".sensor2").text("");
+                $(".sensor2").text("Humidity : " + result["humidity"].toFixed(2) );
+
+                
+
+                $(".sensor4").text("");
+               
+               
+                setTimeout(requestData, 1000);
+                
+            });
+        }
+        requestData();
+        let audio;
+        document.addEventListener('keydown', (event) => {
+            var name = event.key;
+            var code = event.code;
+            // Alert the key name and key code on keydown
+            if(name == "Escape"){
+                audio.stop()
+            }
+            console.log(name)
+          }, false);
+     
+
+     
+        function startPump(obj){
+            if(obj.checked== true){
+               console.log("start")
+            }
+            else{
+                console.log("Off")
+            }
+        }
+    </script>
+</body>
+
+
+</html>

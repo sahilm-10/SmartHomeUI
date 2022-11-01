@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>Diabetes Kills</title>
+<style>
+	*{font-size:30px; font-family: "Comic Sans MS"}
+	body{background-color: #FF7F7F}
+</style>
+</head>
+<body>
+<center>
+<h1>Diabetes Predictor by Yours Truly</h1>
+<form action = "/check">
+	<input type = "number" name = "fs" placeholder = "enter fasted sugar" required>
+	<br><br>
+	Is There frequent urination?
+	<br>
+	<input type = "radio" name = "r1" value = "Yes">Yes</input>
+	<input type = "radio" name = "r1" value = "No" checked>No</input>
+	<br><br>
+	<input type = "submit" value = "Predict">
+	<br>
+</form>
+{{ msg }}
+</center>
+</body>
+</html>
